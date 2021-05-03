@@ -7,18 +7,18 @@ namespace GP20_Multithreading
     {
         static void Main(string[] args)
         {
-            Mutex mutex = new Mutex(false, "com.lynkanrex");
+            var semaphore = new Semaphore(3, 3,"com.lynkanrex.semaphore");
 
             new Thread(() =>
             {
                 while (true)
                 {
-                    if (mutex.WaitOne(2000))
+                    if (semaphore.WaitOne(2000))
                     {
                         Console.WriteLine("Starting program...");
                         Console.WriteLine("Welcome! Press any key to exit");
                         Console.ReadLine();
-                        mutex.ReleaseMutex();
+                        semaphore.Release();
                     }
                     else
                     {
