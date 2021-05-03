@@ -7,41 +7,27 @@ namespace GP20_Multithreading
     {
         static void Main(string[] args)
         {
-            ulong a = 0, b = 0, ab = 0;
-            object _lock = "true";
-            
-            new Thread(() =>
-            {
-                while(true)
-                {
-                    lock (_lock)
-                    {
-                        a++;
-                        ab++;
-                    }
-                }
-            }).Start();
-            new Thread(() =>
-            {
-                while(true)
-                {
-                    lock (_lock)
-                    {
-                        b++;
-                        ab++;
-                    }
-                }
-            }).Start();
+            Mutex mutex = new Mutex(false, "com.lynkanrex");
+
             new Thread(() =>
             {
                 while (true)
                 {
-                    Console.WriteLine($"a: {a}, b: {b}, ab: {ab}");
-                    Thread.Sleep(100);
+                    if (mutex.WaitOne(2000))
+                    {
+                        Console.WriteLine("Starting program...");
+                        Console.WriteLine("Welcome! Press any key to exit");
+                        Console.ReadLine();
+                        mutex.ReleaseMutex();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Warning, another instance of this program" +
+                                          "is already running.");
+                        break;
+                    }
                 }
             }).Start();
-            Console.WriteLine("Press any key to exit");
-            Console.ReadLine();
         }
     }
 }
