@@ -1,4 +1,4 @@
 # GP20-Multithreading
-Side-assignment showcasing Lock() {...} , Mutex and Semaphore usage in C#
+Side-assignment showcasing Lock() {...} , Mutex and Semaphore usage in C# for Multithreading purposes
 
-Different codesets can be viewed in the Commit history
+The different examples and changes between modes can be viewed in the Commit history
